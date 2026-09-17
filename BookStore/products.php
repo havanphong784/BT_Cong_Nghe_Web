@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/includes/functions.php';
+
 $products = [
     [
         'name' => 'Giáo trình Lập trình Web PHP',
@@ -94,35 +96,19 @@ if ($max_price !== null && $max_price !== '') {
     );
 }
 
+$pageTitle = 'Tủ sách giáo trình';
+$activeNav = 'products';
+
+require __DIR__ . '/includes/header.php';
 ?>
-<!doctype html>
-<html lang="vi">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tủ sách giáo trình - BookStore</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
-</head>
-
-<body>
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="brand" href="index.php">
-                <span class="brand-icon">📚</span>
-                <span>BookStore</span>
-            </a>
-            <nav class="main-nav">
-                <a href="index.php">Trang chủ</a>
-                <a href="products.php" class="active">Tủ sách</a>
-            </nav>
-        </div>
-    </header>
 
     <main class="main-container">
-        <div class="catalog-header">
-            <h1 class="catalog-title">Tủ sách giáo trình VKU</h1>
-            <p class="catalog-subtitle">Tra cứu học liệu giáo trình động với PHP thuần (Buổi 01).</p>
+        <div class="catalog-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+            <div>
+                <h1 class="catalog-title">Tủ sách giáo trình VKU</h1>
+                <p class="catalog-subtitle">Tra cứu học liệu giáo trình động với PHP thuần (Buổi 01 & 02).</p>
+            </div>
+            <a class="btn" href="create-product.php">+ Thêm sách mới</a>
         </div>
 
         <!-- Layout 2 cột: Sidebar lọc bên trái, Danh sách sách bên phải -->
@@ -202,16 +188,16 @@ if ($max_price !== null && $max_price !== '') {
 
                                 <div class="product-body">
                                     <h3 class="product-name">
-                                        <?= htmlspecialchars($product['name']) ?>
+                                        <?= e($product['name']) ?>
                                     </h3>
 
                                     <div class="product-price-box">
                                         <span class="product-price">
-                                            <?= htmlspecialchars(number_format($product['price'], 0, ",", ".")) ?> đ
+                                            <?= e(formatCurrency($product['price'])) ?>
                                         </span>
                                         <?php if (!empty($product['original_price']) && $product['original_price'] > $product['price']): ?>
                                             <span class="product-old-price">
-                                                <del><?= htmlspecialchars(number_format($product['original_price'], 0, ",", ".")) ?> đ</del>
+                                                <del><?= e(formatCurrency($product['original_price'])) ?></del>
                                             </span>
                                         <?php endif; ?>
                                     </div>
@@ -219,7 +205,7 @@ if ($max_price !== null && $max_price !== '') {
                                     <div class="product-meta">
                                         <?php if ($product['stock']): ?>
                                             <span class="badge badge-in-stock">
-                                                Còn hàng (<?= htmlspecialchars($product['stock']) ?>)
+                                                Còn hàng (<?= e($product['stock']) ?>)
                                             </span>
                                         <?php else: ?>
                                             <span class="badge badge-out-stock">
@@ -242,11 +228,4 @@ if ($max_price !== null && $max_price !== '') {
         </div>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            BookStore
-        </div>
-    </footer>
-</body>
-
-</html>
+<?php require __DIR__ . '/includes/footer.php'; ?>
