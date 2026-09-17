@@ -97,7 +97,8 @@ if ($max_price !== null && $max_price !== '') {
                             </h2>
 
                             <p class="product-price">
-                                <?= htmlspecialchars(number_format($product['price'], 0, ",", ".")) ?>
+                                <?= htmlspecialchars(number_format($product['price'], 0, ",", "."));
+                                echo "đ" ?>
                             </p>
 
                             <div class="product-meta">
